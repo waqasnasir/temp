@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Layout } from 'antd';
+import 'antd/dist/antd.css';
+import Header from "./components/Header";
+import FAQ from './components/FAQ';
+const { Footer } = Layout;
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+
+
+const App = (): JSX.Element => (
+  <Layout style={{ height: '100%' }}>
+    <Header />
+    <FAQ />
+    <Footer style={{ textAlign: 'center' }}> ©2022 Created by Ahmed Waqas</Footer>
+  </Layout>
+);
 
 export default App;
