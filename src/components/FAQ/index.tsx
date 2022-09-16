@@ -6,15 +6,14 @@ import { PreviousQuestionsTitle } from "./styled";
 
 type Props = {}
 
-function FAQ({ }: Props) {
+function FAQ(props: Props) {
     return (
         <div>
             <NewQuestion />
             <Divider>
                 <ToolTip text='Here you can find created questions and their answers'>
                 <PreviousQuestionsTitle> Previously Asked Questions</PreviousQuestionsTitle>
-                </ToolTip>
-                
+                </ToolTip>  
             </Divider>
             <PreviousQuestions />
         </div>

@@ -1,6 +1,7 @@
 import { Button, Checkbox, Form, Input } from 'antd';
-import { useDispatch } from 'react-redux';
-import { addQuestion, addQuestionAsync, updateQuestion } from '../../features/faq/faqSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addQuestion, addQuestionAsync, selectLoading, updateQuestion } from '../../features/faq/faqSlice';
+import { AppDispatch } from '../../store';
 
 type Props = {
     faq?: {
@@ -13,14 +14,14 @@ type Props = {
 
 const QuestionForm = (props: Props) => {
     const { faq, onDone } = props;
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const [form] = Form.useForm();
+    const isLoading = useSelector(selectLoading);
 
     const onFinish = (values: any) => {
         const { question, answer, delay } = values;
-        const addQ = delay ? addQuestionAsync:addQuestion;
-        // faq ? dispatch(updateQuestion({ id: faq.id, answer, question })) : dispatch(addQ({ question, answer }));
-        dispatch(addQuestion({ question, answer }));
+        const addQuestionAction = delay ? addQuestionAsync:addQuestion;
+        faq ? dispatch(updateQuestion({ id: faq.id, answer, question })) : dispatch(addQuestionAction({ question, answer }));
         onDone && onDone();
         form.resetFields();
     };
@@ -33,7 +34,7 @@ const QuestionForm = (props: Props) => {
                 <Input.TextArea placeholder='Answer' />
             </Form.Item>
             <Form.Item name="delay" valuePropName="checked" >
-                <Checkbox></Checkbox>
+                <Checkbox>Add Delay</Checkbox>
             </Form.Item>
             {
                 faq ? <Form.Item >
@@ -44,7 +45,7 @@ const QuestionForm = (props: Props) => {
                         Update
                     </Button>
                 </Form.Item> : <Form.Item>
-                    <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+                    <Button type="primary" htmlType="submit" style={{ width: '100%' }} loading={isLoading}>
                         Add Question
                     </Button>
                 </Form.Item>

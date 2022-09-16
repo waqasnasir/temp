@@ -31,10 +31,11 @@ const initialState: FAQState = {
 export const addQuestionAsync = createAsyncThunk(
   "faqs/addQuestionAsync",
   async (faq: FAQPayload, thunkAPI) => {
-    await setTimeout(() => {}, 5000);
+    await new Promise(resolve => setTimeout(resolve, 3000));
     return faq;
   }
 );
+
 
 export const faqSlice = createSlice({
   name: "faqs",
@@ -95,6 +96,8 @@ export const faqSlice = createSlice({
   },
 });
 export const selectFaqs = (state: RootState) => state.faqs.faqs;
+export const selectLoading = (state: RootState) => state.faqs.loading;
+
 
 // Action creators are generated for each case reducer function
 export const {
